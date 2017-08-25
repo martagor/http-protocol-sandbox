@@ -13,5 +13,6 @@ public class Main {
         taskDTO.setValue("Po edycji");
         System.out.println(taskDTO);
 
+
     }
 }

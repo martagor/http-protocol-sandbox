@@ -1,7 +1,6 @@
 package service.impl;
 
 import dto.TaskDTO;
-import model.Task;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
@@ -9,10 +8,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 import service.IToDoService;
 
-import java.util.Arrays;
 import java.util.List;
 
 import static java.util.Arrays.asList;
+import static org.springframework.http.HttpStatus.OK;
 
 public class ToDoServiceImpl implements IToDoService {
 
@@ -25,7 +24,7 @@ public class ToDoServiceImpl implements IToDoService {
 
     public boolean healthCheck() {
         ResponseEntity<String> responseEntity = restTemplate.getForEntity(baseUrl+ "/health-check", String.class);
-        return responseEntity.getStatusCode() == HttpStatus.OK;
+        return responseEntity.getStatusCode() == OK;
     }
 
     public List<TaskDTO> findAllTaskByUser(String userId) {
@@ -46,8 +45,17 @@ public class ToDoServiceImpl implements IToDoService {
 
     }
 
+    public boolean updateTask(Long id) {
+        return false;
+    }
+
     public TaskDTO updateTask(TaskDTO taskDTO) {
         return restTemplate.exchange(baseUrl + "/task/", HttpMethod.PUT,
                 new HttpEntity<>(taskDTO), TaskDTO.class).getBody();
+    }
+
+    public boolean deleteTask(Long id) {
+        ResponseEntity<Void> result = restTemplate.exchange(baseUrl + "/task/" + id, HttpMethod.DELETE, null, Void.class);
+        return result.getStatusCode() == OK;
     }
 }

@@ -9,4 +9,5 @@ public interface IToDoService {
     List<TaskDTO> findAllTaskByUser(String userId);
     TaskDTO createNewTask(String value, Long userId, Boolean completed);
     TaskDTO updateTask(TaskDTO taskDTO);
+    boolean deleteTask(Long id);
 }
