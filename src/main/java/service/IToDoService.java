@@ -1,6 +1,6 @@
 package service;
 
-public interface IService {
+public interface IToDoService {
     void healthCheck();
     void findAllTaskByuser();
 }
