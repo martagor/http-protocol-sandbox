@@ -45,4 +45,9 @@ public class ToDoServiceImpl implements IToDoService {
         return response.getBody();
 
     }
+
+    public TaskDTO updateTask(TaskDTO taskDTO) {
+        return restTemplate.exchange(baseUrl + "/task/", HttpMethod.PUT,
+                new HttpEntity<>(taskDTO), TaskDTO.class).getBody();
+    }
 }
