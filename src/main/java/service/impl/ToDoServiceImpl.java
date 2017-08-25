@@ -1,6 +1,9 @@
 package service.impl;
 
 import dto.TaskDTO;
+import model.Task;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
@@ -29,5 +32,17 @@ public class ToDoServiceImpl implements IToDoService {
 
         ResponseEntity<TaskDTO[]> response = restTemplate.getForEntity(baseUrl + "/task/all/" + userId, TaskDTO[].class);
         return asList(response.getBody());
+    }
+
+    public TaskDTO createNewTask(String value, Long userId, Boolean completed) {
+        TaskDTO taskDTO = new TaskDTO();
+        taskDTO.setUser(userId);
+        taskDTO.setValue(value);
+        taskDTO.setCompleted(completed);
+        HttpEntity<TaskDTO> requestBody = new HttpEntity<>(taskDTO);
+        ResponseEntity<TaskDTO> response = restTemplate.exchange(baseUrl + "/task/", HttpMethod.PUT,
+                requestBody, TaskDTO.class);
+        return response.getBody();
+
     }
 }
