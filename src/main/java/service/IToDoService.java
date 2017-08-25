@@ -1,6 +1,10 @@
 package service;
 
+import dto.TaskDTO;
+
+import java.util.List;
+
 public interface IToDoService {
-    void healthCheck();
-    void findAllTaskByuser();
+    boolean healthCheck();
+    List<TaskDTO> findAllTaskByUser(String userId);
 }
